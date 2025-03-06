@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
+    <title>Redirecting...</title>
+    <script src="redirects.js"></script> <!-- Load redirects before script runs -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Load short URL mappings from redirects.js
-            const script = document.createElement("script");
-            script.src = "redirects.js";
-            script.onload = function () {
-                // Get the short URL key from the path (GitHub Pages serves from subdirectories)
-                const path = window.location.pathname.split('/').pop(); // Get last part of the path
-                
-                if (redirects[path]) {
-                    window.location.href = redirects[path]; // Redirect to the actual URL
-                } else {
-                    document.getElementById("message").innerText = "404 - Short URL not found.";
-                }
-            };
-            document.head.appendChild(script);
+            // Ensure the redirects object exists
+            if (typeof redirects === "undefined") {
+                document.getElementById("message").innerText = "Error: Redirects not loaded.";
+                return;
+            }
+
+            // Get the short URL key from the path
+            const path = window.location.pathname.split('/').pop(); // Last part of URL
+
+            // Redirect if the path exists in redirects.js
+            if (redirects[path]) {
+                window.location.href = redirects[path];
+            } else {
+                document.getElementById("message").innerText = "404 - Short URL not found.";
+            }
         });
     </script>
 </head>
