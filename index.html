@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Define the short URL mappings
+            const urlMap = {
+                "abc": "https://example.com/page1",
+                "xyz": "https://example.com/page2",
+                "test": "https://google.com"
+            };
+
+            // Get the short code from the URL path
+            const path = window.location.pathname.replace("/", "");
+
+            // Check if the short code exists in our map
+            if (urlMap[path]) {
+                window.location.href = urlMap[path]; // Redirect to the actual URL
+            } else {
+                document.getElementById("message").innerText = "404 - Short URL not found.";
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1 id="message">Redirecting...</h1>
+</body>
+</html>
